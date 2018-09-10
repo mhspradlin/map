@@ -39,7 +39,7 @@ pub fn create_directives() -> Vec<Box<dyn MappingDirective>> {
 fn copy_regex_directive() -> Box<dyn MappingDirective> {
     let directive = RegexDirective {
         directive_name: "Copy".to_string(),
-        format: Regex::new(r"^\s*c\s*/(?P<regex>.*?)/\s*(?P<destination>.*?)\s*$").unwrap(),
+        format: Regex::new(r"^\s*c\s*/(?P<regex>.*?)/\s*(?P<destination>.+?)\s*$").unwrap(),
         action_factory: Box::new(|captures: Captures| {
             let regex_string =
                 captures.name("regex")
@@ -74,7 +74,7 @@ pub fn mapping_from_string(all_directives: &Vec<Box<dyn MappingDirective>>, dire
     }
 
     if matched_directives.len() > 1 {
-        let directive_list = matched_directives.iter().fold("".to_string(), |accum, next| format!("{}, {}", accum, next));
+        let directive_list = matched_directives.iter().fold(String::new(), |accum, next| format!("{}, {}", accum, next));
         Some(Err(Error::from(format!("Ambiguous directive '{}', which matched {}", directive_definition, directive_list))))
     } else {
         found_mapping
@@ -117,9 +117,9 @@ mod test {
     }
 
     impl fmt::Display for RecordingTestDirective {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", "Test directive")
-    }
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+            write!(f, "{}", "Test directive")
+        }
     }
 
     impl MappingDirective for RecordingTestDirective {
@@ -148,5 +148,34 @@ mod test {
     fn copy_regex_directive_create_mapping_valid() {
         let copy_regex_directive = copy_regex_directive();
         assert_eq!(copy_regex_directive.create_mapping("c/regex/ destination").unwrap().is_ok(), true);
+    }
+
+    #[test]
+    fn create_mapping_regex_directive_no_matches() {
+        assert_eq!(create_test_regex_directive().create_mapping("no-matches").is_none(), true);
+    }
+
+    #[test]
+    fn create_mapping_regex_directive_matches() {
+        let result = create_test_regex_directive().create_mapping("not-matched this matches");
+        match result {
+            Some(Err(Error(ErrorKind::Msg(message), _))) => assert_eq!(message, "match"),
+            _ => panic!("create_mapping_regex_directive_matches is not Some(Error('match'))")
+        }
+    }
+
+    fn create_test_regex_directive() -> RegexDirective {
+        RegexDirective {
+            directive_name: "Test".to_string(),
+            format: Regex::new(r"^not-matched(?P<Match>.+)$").unwrap(),
+            action_factory: Box::new(|captures: Captures| {
+                let capture = captures.name("Match").chain_err(|| "no match")?;
+                if capture.as_str() == " this matches" {
+                    Err(Error::from("match"))
+                } else {
+                    Err(Error::from("not a match"))
+                }
+            })
+        }
     }
 }
