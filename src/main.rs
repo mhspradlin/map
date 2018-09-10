@@ -174,11 +174,11 @@ fn mappings_from_file(
     file: &PathBuf,
 ) -> Result<Vec<Mapping>> {
     let f = fs::File::open(file)
-        .chain_err(|| format!("Unable to open directive file {}", file.to_string_lossy()))?;
+        .chain_err(|| format!("Unable to open rules file {}", file.to_string_lossy()))?;
     let mut mappings = vec![];
     for line_result in BufReader::new(f).lines() {
         let line = line_result
-            .chain_err(|| format!("Error reading directive file {}", file.to_string_lossy()))?;
+            .chain_err(|| format!("Error reading rules file {}", file.to_string_lossy()))?;
         match mapping_from_string(all_directives, &line) {
             Some(result) => mappings.push(result?),
             None => (),
