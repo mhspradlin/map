@@ -24,8 +24,10 @@ where
 
     test_method(test_file);
 
-    // Clean up
-    fs::remove_file(test_file).unwrap();
+    // Clean up if the test file wasn't deleted
+    if test_file.is_file() {
+        fs::remove_file(test_file).unwrap();
+    }
 }
 
 pub fn dummy_map_file_context() -> MapFileContext {

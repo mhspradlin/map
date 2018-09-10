@@ -47,7 +47,7 @@ fn main() {
 
     // If there was an error, nicely print it and the related causes
     if let Err(ref error) = run(argument_matches) {
-        error!("Error: {}", error);
+        error!("error: {}", error);
         for cause in error.iter().skip(1) {
             error!("caused by: {}", cause);
         }
@@ -57,7 +57,7 @@ fn main() {
     }
 }
 
-fn create_app<'a,'b>() -> App<'a,'b> {
+fn create_app<'a, 'b>() -> App<'a, 'b> {
     // Feature ideas:
     // Delete behavior (don't do it (default), do it during, do it at end)
     // Clobber behavior (don't do it and don't fail (default), don't do it and fail, do it)
