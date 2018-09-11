@@ -1,4 +1,7 @@
 # Map
+[![Build Status](https://travis-ci.org/mhspradlin/map.svg?branch=master)](https://travis-ci.org/mhspradlin/map)
+[![Build status](https://ci.appveyor.com/api/projects/status/q34bb3qf43pgh2oo?svg=true)](https://ci.appveyor.com/project/mhspradlin/map)
+
 A utility to map files into directories according to rules.
 
 I created this to make it easier to organize similarly-named files into the same directory with human-friendly names. Specifically, this made it easier to organize all the book files from [Humble Bundles](https://www.humblebundle.com/) after [downloading them](https://gist.github.com/graymouser/a33fbb75f94f08af7e36) flat into my Downloads directory[1].
