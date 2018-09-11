@@ -155,7 +155,7 @@ mod test {
 
     #[test]
     fn copy_action_task_create_output_directory_failure() {
-        let action = CopyAction::new(PathBuf::from(random_string() + "_i,l|l;e:g'al\"name/../../../../../../../../"));
+        let action = CopyAction::new(PathBuf::from("../../../../../../../../".to_string() + &random_string() + "_i,l|l;e:g'al\"name"));
         with_default_test_directory(|test_directory| {
             with_default_test_file(test_directory, |test_file| {
                 with_default_output_directory(test_directory, |output_directory| {
@@ -290,7 +290,7 @@ mod test {
 
     #[test]
     fn move_action_task_create_output_directory_failure() {
-        let action = MoveAction::new(PathBuf::from(random_string() + "_i,l|l;e:g'al\"name/../../../../../../../../"));
+        let action = MoveAction::new(PathBuf::from("../../../../../../../../".to_string() + &random_string() + "_i,l|l;e:g'al\"name"));
         with_default_test_directory(|test_directory| {
             with_default_test_file(test_directory, |test_file| {
                 with_default_output_directory(test_directory, |output_directory| {
