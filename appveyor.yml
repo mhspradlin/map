@@ -23,9 +23,7 @@ install:
 build: false
 
 test_script:
-  - cargo build --verbose
-  - cargo run
-  - cargo test
+  - cargo test --target %TARGET%
 
 branches:
   only:
