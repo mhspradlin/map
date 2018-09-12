@@ -5,7 +5,7 @@
 
 A utility to map files into directories according to rules.
 
-I created this to make it easier to organize similarly-named files into the same directory with human-friendly names. Specifically, this made it easier to organize all the book files from [Humble Bundles](https://www.humblebundle.com/) after [downloading them](https://gist.github.com/graymouser/a33fbb75f94f08af7e36) flat into my Downloads directory[1].
+I created this to make it easier to organize similarly-named files into the same directory with human-friendly names. Specifically, this made it easier to organize all the book files from [Humble Bundles](https://www.humblebundle.com/) after [downloading them](https://gist.github.com/graymouser/a33fbb75f94f08af7e36) flat into my Downloads directory<sup>[1](#gist-footnote)</sup>.
 
 # Usage
 Clone this repository, then build using `cargo build --release` using the stable toolchain.
@@ -61,7 +61,7 @@ And the file structure looked like this to start:
         orange.txt
 ```
 
-After running the command, it looks like this:
+After running the command, it will look like this:
 ```
 ├───test-destination
 │   ├───Lime Files
@@ -79,4 +79,4 @@ This tool attempts to catch errors before performing any filesystem modification
 
 If this tool encounters an error when performing actions (e.g. the destination directory is not writeable), then the tool stops performing actions immediately. It does not attempt to roll-back modifications that have already been made, so as always be careful with destructive filesystem actions like moving files with a Move action.
 
-[1] It looks like that gist has since been improved to allow downloading into nicely-named folders.
+<a name="gist-footnote">1</a>: It looks like that gist has since been improved to allow downloading into nicely-named folders.
