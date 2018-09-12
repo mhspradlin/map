@@ -1,6 +1,6 @@
 [package]
 name = "file-map"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Mitch S. <mitch+map@applicative.us>"]
 categories = ["command-line-utilities"]
 description = "Utility to map files into directories according to rules."
