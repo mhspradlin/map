@@ -6,7 +6,7 @@ categories = ["command-line-utilities"]
 description = "Utility to map files into directories according to rules."
 exclude = ["/test_output/*"]
 homepage = "https://github.com/mhspradlin/map"
-keyords = [
+keywords = [
     "tool",
     "filesystem",
     "file",

@@ -1,6 +1,7 @@
 # Map
 [![Build Status](https://travis-ci.org/mhspradlin/map.svg?branch=master)](https://travis-ci.org/mhspradlin/map)
 [![Build status](https://ci.appveyor.com/api/projects/status/q34bb3qf43pgh2oo?svg=true)](https://ci.appveyor.com/project/mhspradlin/map)
+[![Version info](https://img.shields.io/crates/v/file-map.svg)](https://crates.io/crates/file-map)
 
 A utility to map files into directories according to rules.
 
@@ -44,6 +45,35 @@ Execute rules from a file `rules.map` on files in `test-source` with destination
 map -s ./test-source -d ./test-destination -r ./rules.map
 ```
 
+Fot the last command above, if `rules.map` included the following content:
+```
+c/lime/Lime Files
+m/orange/Orange Files
+c/apple/Apple Files
+```
+
+And the file structure looked like this to start:
+```
+├───test-destination
+└───test-source
+        lemon.txt
+        lime.txt
+        orange.txt
+```
+
+After running the command, it looks like this:
+```
+├───test-destination
+│   ├───Lime Files
+│   │       lime.txt
+│   │
+│   └───Orange Files
+│           orange.txt
+│
+└───test-source
+        lemon.txt
+        lime.txt
+```
 ## Errors
 This tool attempts to catch errors before performing any filesystem modifications and for those that it doesn't it stops as soon as any errors are encountered. This tool first parses all the rules, determines what actions to perform (e.g. file moves and copies), then performs those actions. If there's a problem parsing the rules (e.g. invalid regex in a Copy rule) or determining the actions (e.g. the source directory cannot be read) then no filesystem modifications occur and a helpful (hopefully) error message is displayed.
 
