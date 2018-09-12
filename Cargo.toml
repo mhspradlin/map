@@ -1,7 +1,29 @@
 [package]
-name = "map"
+name = "file-map"
 version = "0.1.0"
 authors = ["Mitch S. <mitch+map@applicative.us>"]
+categories = ["command-line-utilities"]
+description = "Utility to map files into directories according to rules."
+exclude = ["/test_output/*"]
+homepage = "https://github.com/mhspradlin/map"
+keyords = [
+    "tool",
+    "filesystem",
+    "file",
+    "cli"
+]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/mhspradlin/map"
+
+[[bin]]
+name = "map"
+path = "src/main.rs"
+
+[badges.appveyor]
+repository = "mhspradlin/map"
+[badges.travis-ci]
+repository = "mhspradlin/map"
 
 [dependencies]
 clap = "~2.32.0"
